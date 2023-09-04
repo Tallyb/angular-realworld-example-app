@@ -5,6 +5,7 @@
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
+    "strict": false,
     "declaration": false,
     "module": "es2020",
     "moduleResolution": "node",
@@ -18,5 +19,8 @@
       "es2018",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true
   }
 }
