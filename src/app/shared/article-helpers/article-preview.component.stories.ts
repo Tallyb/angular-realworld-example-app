@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ArticleMetaComponent } from './article-meta.component';
 import { FavoriteButtonComponent } from '../buttons/favorite-button.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 const meta: Meta<ArticlePreviewComponent> = {
   title: 'Example/ArticlePreviewComponent',
@@ -12,7 +13,7 @@ const meta: Meta<ArticlePreviewComponent> = {
   decorators: [
     moduleMetadata({
       declarations: [ ArticleMetaComponent, FavoriteButtonComponent  ],
-      imports: [CommonModule, ReactiveFormsModule, ],
+      imports: [CommonModule, ReactiveFormsModule, RouterTestingModule],
     }),
   ],
   render: (args: ArticlePreviewComponent) => ({
