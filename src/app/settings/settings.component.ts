@@ -1,13 +1,21 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { User, UserService } from '../core';
+import { ListErrorsComponent } from '../shared/list-errors.component';
 
 @Component({
   selector: 'app-settings-page',
   templateUrl: './settings.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    ListErrorsComponent,
+  ]
 })
 export class SettingsComponent implements OnInit {
   user: User = {} as User;

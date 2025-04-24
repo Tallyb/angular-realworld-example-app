@@ -67,18 +67,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ang2-conduit:build"
+            "buildTarget": "ang2-conduit:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ang2-conduit:build:production"
+              "buildTarget": "ang2-conduit:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ang2-conduit:build"
+            "buildTarget": "ang2-conduit:build"
           }
         },
         "test": {

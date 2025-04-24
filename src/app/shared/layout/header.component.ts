@@ -5,7 +5,7 @@ import { User, UserService } from '../../core';
 @Component({
   selector: 'app-layout-header',
   templateUrl: './header.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
   constructor(

@@ -1,11 +1,14 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Article } from '../../core';
+import { ArticleMetaComponent } from './article-meta.component';
+import { FavoriteButtonComponent } from '../buttons/favorite-button.component';
 
 @Component({
   selector: 'app-article-preview',
   templateUrl: './article-preview.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ArticleMetaComponent, FavoriteButtonComponent]
 })
 export class ArticlePreviewComponent {
   @Input() article: Article;
