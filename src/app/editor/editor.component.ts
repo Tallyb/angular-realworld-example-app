@@ -1,19 +1,27 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-import { Article, ArticlesService } from '../core';
+import { Article, ArticlesService, Errors } from '../core';
+import { ListErrorsComponent } from '../shared/list-errors.component';
 
 @Component({
   selector: 'app-editor-page',
   templateUrl: './editor.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    ListErrorsComponent
+  ]
 })
 export class EditorComponent implements OnInit {
   article: Article = {} as Article;
   articleForm: FormGroup;
   tagField = new FormControl();
-  errors: Object = {};
+  errors: Errors = {errors: {}};
   isSubmitting = false;
 
   constructor(

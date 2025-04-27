@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angul
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { User, UserService } from '../core';
+import { Errors, User, UserService } from '../core';
 import { ListErrorsComponent } from '../shared/list-errors.component';
 
 @Component({
@@ -20,7 +20,7 @@ import { ListErrorsComponent } from '../shared/list-errors.component';
 export class SettingsComponent implements OnInit {
   user: User = {} as User;
   settingsForm: FormGroup;
-  errors: Object = {};
+  errors: Errors = { errors: {} };
   isSubmitting = false;
 
   constructor(

@@ -1,11 +1,15 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Article } from '../../core';
 
 @Component({
   selector: 'app-article-meta',
   templateUrl: './article-meta.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule,
+    RouterModule
+  ]
 })
 export class ArticleMetaComponent {
   @Input() article: Article;

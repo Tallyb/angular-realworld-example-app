@@ -1,22 +1,26 @@
-import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
+import { routes as EditorRoutes } from './editor';
+import { routes as ArticleRoutes } from './article';
+import { routes as ProfileRoutes } from './profile';
+import { routes as SettingsRoutes } from './settings';
+
 
 export const routes: Routes = [
   {
     path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+    ...SettingsRoutes
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    ...ProfileRoutes
   },
   {
     path: 'editor',
-    loadChildren: () => import('./editor/editor.module').then(m => m.EditorModule)
+    ...EditorRoutes
   },
   {
     path: 'article',
-    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
+    ...ArticleRoutes
   }
 ];

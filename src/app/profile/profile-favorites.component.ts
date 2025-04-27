@@ -2,11 +2,17 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ArticleListConfig, Profile } from '../core';
+import { ArticleListComponent } from '../shared';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-favorites',
-  templateUrl: './profile-favorites.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-profile-favorites",
+  template: `
+    <app-article-list [limit]="10" [config]="favoritesConfig">
+    </app-article-list>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ArticleListComponent],
 })
 export class ProfileFavoritesComponent implements OnInit {
   constructor(

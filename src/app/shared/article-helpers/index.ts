@@ -1,3 +1,3 @@
-export * from './article-list.component';
-export * from './article-meta.component';
-export * from './article-preview.component';
+export { ArticleListComponent } from './article-list.component';
+export { ArticleMetaComponent } from './article-meta.component';
+export { ArticlePreviewComponent } from './article-preview.component';

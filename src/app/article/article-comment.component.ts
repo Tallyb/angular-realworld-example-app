@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { Comment, User, UserService } from '../core';
 import { Subscription } from 'rxjs';
@@ -6,7 +8,8 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-article-comment',
   templateUrl: './article-comment.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, CommonModule],
 })
 export class ArticleCommentComponent implements OnInit, OnDestroy {
   constructor(
@@ -17,6 +20,7 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   @Input() comment: Comment;
+  @Input() currentUser: User;
   @Output() deleteComment = new EventEmitter<boolean>();
 
   canModify: boolean;
@@ -38,6 +42,4 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
   deleteClicked() {
     this.deleteComment.emit(true);
   }
-
-
 }

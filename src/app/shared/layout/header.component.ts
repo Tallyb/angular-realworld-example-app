@@ -1,11 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { User, UserService } from '../../core';
+import { ShowAuthedDirective } from '../show-authed.directive';
 
 @Component({
   selector: 'app-layout-header',
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, CommonModule, ShowAuthedDirective]
 })
 export class HeaderComponent implements OnInit {
   constructor(

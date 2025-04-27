@@ -1,13 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 
-import { UserService } from "./core";
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { ApiService, HttpTokenInterceptor, UserService } from "./core";
+import { RouterOutlet } from "@angular/router";
 import { HeaderComponent, FooterComponent } from "./shared/layout";
 
 import { ListErrorsComponent } from "./shared/list-errors.component";
 import { ShowAuthedDirective } from "./shared/show-authed.directive";
 import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
 @Component({
   selector: "app-root",
   template: `
@@ -18,20 +19,20 @@ import { FormsModule } from "@angular/forms";
     <app-layout-footer></app-layout-footer>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+  providers: [
+    ApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
+  ],
   imports: [
     RouterOutlet,
-    RouterLink,
     HeaderComponent,
     FooterComponent,
-    ListErrorsComponent,
-    ShowAuthedDirective,
     CommonModule,
-    FormsModule,
   ],
 })
 export class AppComponent implements OnInit {
-  constructor(private userService: UserService) {}
+
+  private userService = inject(UserService);
 
   ngOnInit() {
     this.userService.populate();

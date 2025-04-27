@@ -1,2 +1,2 @@
-export * from './favorite-button.component';
-export * from './follow-button.component';
+export { FavoriteButtonComponent } from './favorite-button.component';
+export { FollowButtonComponent } from './follow-button.component';

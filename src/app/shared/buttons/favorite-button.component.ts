@@ -1,21 +1,21 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { Article, ArticlesService, UserService } from '../../core';
-import { of } from 'rxjs';
-import { concatMap ,  tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorite-button',
   templateUrl: './favorite-button.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  imports: [
+    CommonModule
+  ]
 })
 export class FavoriteButtonComponent {
   constructor(
     private articlesService: ArticlesService,
     private router: Router,
-    private userService: UserService,
-    private cd: ChangeDetectorRef
+    private userService: UserService
   ) {}
 
   @Input() article: Article;
@@ -25,40 +25,37 @@ export class FavoriteButtonComponent {
   toggleFavorite() {
     this.isSubmitting = true;
 
-    this.userService.isAuthenticated.pipe(concatMap(
+    this.userService.isAuthenticated.subscribe(
       (authenticated) => {
         // Not authenticated? Push to login screen
         if (!authenticated) {
           this.router.navigateByUrl('/login');
-          return of(null);
+          return;
         }
 
         // Favorite the article if it isn't favorited yet
         if (!this.article.favorited) {
-          return this.articlesService.favorite(this.article.slug)
-          .pipe(tap(
-            data => {
+          this.articlesService.favorite(this.article.slug)
+          .subscribe({
+            next: data => {
               this.isSubmitting = false;
               this.toggle.emit(true);
             },
-            err => this.isSubmitting = false
-          ));
+            error: err => this.isSubmitting = false
+          });
 
         // Otherwise, unfavorite the article
         } else {
-          return this.articlesService.unfavorite(this.article.slug)
-          .pipe(tap(
-            data => {
+          this.articlesService.unfavorite(this.article.slug)
+          .subscribe({
+            next: data => {
               this.isSubmitting = false;
               this.toggle.emit(false);
             },
-            err => this.isSubmitting = false
-          ));
+            error: err => this.isSubmitting = false
+          });
         }
-
       }
-    )).subscribe(() => {
-      this.cd.markForCheck();
-    });
+    );
   }
 }

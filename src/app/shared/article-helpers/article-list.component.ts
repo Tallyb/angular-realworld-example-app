@@ -1,33 +1,40 @@
-import { Component, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { Article, ArticleListConfig, ArticlesService } from '../../core';
+import { ArticlePreviewComponent } from './article-preview.component';
+
 @Component({
   selector: 'app-article-list',
   styleUrls: ['article-list.component.css'],
   templateUrl: './article-list.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    ArticlePreviewComponent
+  ]
 })
-export class ArticleListComponent {
-  constructor (
-    private articlesService: ArticlesService,
-    private cd: ChangeDetectorRef
-  ) {}
+export class ArticleListComponent implements OnInit {
+
 
   @Input() limit: number;
-  @Input()
-  set config(config: ArticleListConfig) {
-    if (config) {
-      this.query = config;
-      this.currentPage = 1;
-      this.runQuery();
-    }
-  }
+  @Input() config: ArticleListConfig;
 
-  query: ArticleListConfig;
+  private articlesService: ArticlesService = inject(ArticlesService);
+  query: ArticleListConfig = {
+    type: 'all',
+    filters: {}
+  };
   results: Article[];
   loading = false;
   currentPage = 1;
   totalPages: Array<number> = [1];
+
+  ngOnInit() {
+    // Initialize with default values
+    this.query = {...this.config};
+    this.runQuery();
+  }
 
   setPageTo(pageNumber) {
     this.currentPage = pageNumber;
@@ -49,13 +56,14 @@ export class ArticleListComponent {
     }
 
     this.articlesService.query(this.query)
-    .subscribe(data => {
-      this.loading = false;
-      this.results = data.articles;
+    .subscribe({
+      next: data => {
+        this.loading = false;
+        this.results = data.articles;
 
-      // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
-      this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => index + 1);
-      this.cd.markForCheck();
+        // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
+        this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => index + 1);
+      }
     });
   }
 }

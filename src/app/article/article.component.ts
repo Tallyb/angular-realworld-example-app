@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 import {
   Article,
@@ -8,13 +8,29 @@ import {
   Comment,
   CommentsService,
   User,
-  UserService
+  UserService,
+  Errors
 } from '../core';
+import { CommonModule } from '@angular/common';
+import { ArticleCommentComponent } from './article-comment.component';
+import { ArticleMetaComponent, FavoriteButtonComponent, FollowButtonComponent, ListErrorsComponent } from '../shared';
+import { MarkdownPipe } from './markdown.pipe';
 
 @Component({
   selector: 'app-article-page',
   templateUrl: './article.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    RouterLink,
+    ReactiveFormsModule,
+    ArticleCommentComponent,
+    FavoriteButtonComponent,
+    ListErrorsComponent,
+    FollowButtonComponent,
+    ArticleMetaComponent,
+    MarkdownPipe,
+  ]
 })
 export class ArticleComponent implements OnInit {
   article: Article;
@@ -22,7 +38,7 @@ export class ArticleComponent implements OnInit {
   canModify: boolean;
   comments: Comment[];
   commentControl = new FormControl();
-  commentFormErrors = {};
+  commentFormErrors: Errors = {errors: {}};
   isSubmitting = false;
   isDeleting = false;
 
@@ -80,11 +96,11 @@ export class ArticleComponent implements OnInit {
     this.isDeleting = true;
 
     this.articlesService.destroy(this.article.slug)
-      .subscribe(
-        success => {
+      .subscribe({
+        next: success => {
           this.router.navigateByUrl('/');
         }
-      );
+      });
   }
 
   populateComments() {
@@ -97,34 +113,34 @@ export class ArticleComponent implements OnInit {
 
   addComment() {
     this.isSubmitting = true;
-    this.commentFormErrors = {};
+    this.commentFormErrors = {errors: {}};
 
     const commentBody = this.commentControl.value;
     this.commentsService
       .add(this.article.slug, commentBody)
-      .subscribe(
-        comment => {
+      .subscribe({
+        next: comment => {
           this.comments.unshift(comment);
           this.commentControl.reset('');
           this.isSubmitting = false;
           this.cd.markForCheck();
         },
-        errors => {
-          this.isSubmitting = false;
+        error: errors => {
           this.commentFormErrors = errors;
+          this.isSubmitting = false;
           this.cd.markForCheck();
         }
-      );
+      });
   }
 
   onDeleteComment(comment) {
     this.commentsService.destroy(comment.id, this.article.slug)
-      .subscribe(
-        success => {
+      .subscribe({
+        next: success => {
           this.comments = this.comments.filter((item) => item !== comment);
           this.cd.markForCheck();
         }
-      );
+      });
   }
 
 }

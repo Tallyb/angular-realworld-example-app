@@ -1,13 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { User, UserService, Profile } from '../core';
 import { concatMap ,  tap } from 'rxjs/operators';
+import { FollowButtonComponent } from '../shared';
+import { ArticleListComponent } from '../shared';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, FollowButtonComponent, RouterModule],
 })
 export class ProfileComponent implements OnInit {
   constructor(

@@ -1,13 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { ArticleListConfig, TagsService, UserService } from '../core';
+import { ArticleListComponent, ShowAuthedDirective } from '../shared';
 
 @Component({
   selector: 'app-home-page',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ArticleListComponent, ShowAuthedDirective],
 })
 export class HomeComponent implements OnInit {
   constructor(

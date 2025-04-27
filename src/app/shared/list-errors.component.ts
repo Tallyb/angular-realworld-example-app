@@ -13,7 +13,7 @@ import { Errors } from "../core";
     </ul>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule],
+  imports: [CommonModule]
 })
 export class ListErrorsComponent {
   formattedErrors: Array<string> = [];
