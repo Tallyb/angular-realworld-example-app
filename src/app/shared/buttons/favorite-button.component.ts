@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -12,11 +12,10 @@ import { Article, ArticlesService, UserService } from '../../core';
   ]
 })
 export class FavoriteButtonComponent {
-  constructor(
-    private articlesService: ArticlesService,
-    private router: Router,
-    private userService: UserService
-  ) {}
+  private articlesService = inject(ArticlesService);
+  private router = inject(Router);
+  private userService = inject(UserService);
+
 
   @Input() article: Article;
   @Output() toggle = new EventEmitter<boolean>();

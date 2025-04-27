@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { ApiService } from './api.service';
@@ -10,9 +10,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CommentsService {
-  constructor (
-    private apiService: ApiService
-  ) {}
+  private apiService = inject(ApiService);
+
 
   add(slug, payload): Observable<Comment> {
     return this.apiService

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 
 import { Errors, UserService } from '../core';
 import { ListErrorsComponent } from '../shared/list-errors.component';
@@ -10,25 +10,24 @@ import { ListErrorsComponent } from '../shared/list-errors.component';
   selector: 'app-auth-page',
   templateUrl: './auth.component.html',
   imports: [
-    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     ListErrorsComponent
-  ]
+]
 })
 export class AuthComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private fb = inject(FormBuilder);
+
   authType: String = '';
   title: String = '';
   errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private userService: UserService,
-    private fb: FormBuilder
-  ) {
+  constructor() {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
       'email': [''],

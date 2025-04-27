@@ -1,14 +1,9 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-} from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { ArticleListConfig, Profile } from "../core";
 import { ArticleListComponent } from "../shared";
-import { CommonModule } from "@angular/common";
+
 
 @Component({
   selector: "app-profile-articles",
@@ -17,14 +12,13 @@ import { CommonModule } from "@angular/common";
     </app-article-list>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ArticleListComponent],
+  imports: [ArticleListComponent],
 })
 export class ProfileArticlesComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private cd: ChangeDetectorRef
-  ) {}
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private cd = inject(ChangeDetectorRef);
+
 
   profile: Profile;
   articlesConfig: ArticleListConfig = {

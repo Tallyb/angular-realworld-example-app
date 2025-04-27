@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -9,10 +9,9 @@ import { take } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HomeAuthResolver implements Resolve<boolean> {
-  constructor(
-    private router: Router,
-    private userService: UserService
-  ) {}
+  private router = inject(Router);
+  private userService = inject(UserService);
+
 
   resolve(
     route: ActivatedRouteSnapshot,

@@ -1,4 +1,4 @@
-import { Injectable, } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -9,10 +9,9 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfileResolver implements Resolve<Profile> {
-  constructor(
-    private profilesService: ProfilesService,
-    private router: Router
-  ) {}
+  private profilesService = inject(ProfilesService);
+  private router = inject(Router);
+
 
   resolve(
     route: ActivatedRouteSnapshot,

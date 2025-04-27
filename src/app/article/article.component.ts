@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -33,6 +33,13 @@ import { MarkdownPipe } from './markdown.pipe';
   ]
 })
 export class ArticleComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private articlesService = inject(ArticlesService);
+  private commentsService = inject(CommentsService);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
+
   article: Article;
   currentUser: User;
   canModify: boolean;
@@ -41,15 +48,6 @@ export class ArticleComponent implements OnInit {
   commentFormErrors: Errors = {errors: {}};
   isSubmitting = false;
   isDeleting = false;
-
-  constructor(
-    private route: ActivatedRoute,
-    private articlesService: ArticlesService,
-    private commentsService: CommentsService,
-    private router: Router,
-    private userService: UserService,
-    private cd: ChangeDetectorRef
-  ) { }
 
   ngOnInit() {
     // Retreive the prefetched article

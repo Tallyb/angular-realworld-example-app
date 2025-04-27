@@ -1,24 +1,23 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { User, UserService, Profile } from '../core';
 import { concatMap ,  tap } from 'rxjs/operators';
 import { FollowButtonComponent } from '../shared';
 import { ArticleListComponent } from '../shared';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, FollowButtonComponent, RouterModule],
+  imports: [FollowButtonComponent, RouterModule],
 })
 export class ProfileComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private cd: ChangeDetectorRef
-  ) { }
+  private route = inject(ActivatedRoute);
+  private userService = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
+
 
   profile: Profile;
   currentUser: User;

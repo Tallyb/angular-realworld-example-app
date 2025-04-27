@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 
 import { Errors, User, UserService } from '../core';
 import { ListErrorsComponent } from '../shared/list-errors.component';
@@ -12,23 +12,22 @@ import { ListErrorsComponent } from '../shared/list-errors.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
-    CommonModule,
     FormsModule,
-    ListErrorsComponent,
-  ]
+    ListErrorsComponent
+]
 })
 export class SettingsComponent implements OnInit {
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private fb = inject(FormBuilder);
+  private cd = inject(ChangeDetectorRef);
+
   user: User = {} as User;
   settingsForm: FormGroup;
   errors: Errors = { errors: {} };
   isSubmitting = false;
 
-  constructor(
-    private router: Router,
-    private userService: UserService,
-    private fb: FormBuilder,
-    private cd: ChangeDetectorRef
-  ) {
+  constructor() {
     // create form group using the form builder
     this.settingsForm = this.fb.group({
       image: '',

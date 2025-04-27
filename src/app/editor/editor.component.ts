@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 
 import { Article, ArticlesService, Errors } from '../core';
 import { ListErrorsComponent } from '../shared/list-errors.component';
@@ -11,26 +11,25 @@ import { ListErrorsComponent } from '../shared/list-errors.component';
   templateUrl: './editor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     RouterModule,
     ReactiveFormsModule,
     ListErrorsComponent
-  ]
+]
 })
 export class EditorComponent implements OnInit {
+  private articlesService = inject(ArticlesService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private cd = inject(ChangeDetectorRef);
+
   article: Article = {} as Article;
   articleForm: FormGroup;
   tagField = new FormControl();
   errors: Errors = {errors: {}};
   isSubmitting = false;
 
-  constructor(
-    private articlesService: ArticlesService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private cd: ChangeDetectorRef
-  ) {
+  constructor() {
     // use the FormBuilder to create a form group
     this.articleForm = this.fb.group({
       title: '',

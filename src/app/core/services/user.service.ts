@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 
 import { ApiService } from './api.service';
@@ -11,16 +11,14 @@ import { map ,  distinctUntilChanged } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
+  private apiService = inject(ApiService);
+  private jwtService = inject(JwtService);
+
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
-
-  constructor (
-    private apiService: ApiService,
-    private jwtService: JwtService
-  ) {}
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.

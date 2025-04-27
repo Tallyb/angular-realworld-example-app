@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -12,10 +12,9 @@ import { Subscription } from 'rxjs';
   imports: [RouterModule, CommonModule],
 })
 export class ArticleCommentComponent implements OnInit, OnDestroy {
-  constructor(
-    private userService: UserService,
-    private cd: ChangeDetectorRef
-  ) {}
+  private userService = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
+
 
   private subscription: Subscription;
 

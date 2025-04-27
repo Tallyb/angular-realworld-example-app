@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ArticleListConfig, Profile } from '../core';
 import { ArticleListComponent } from '../shared';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: "app-profile-favorites",
@@ -12,13 +12,12 @@ import { CommonModule } from '@angular/common';
     </app-article-list>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ArticleListComponent],
+  imports: [ArticleListComponent],
 })
 export class ProfileFavoritesComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
-  ) {}
+  private route = inject(ActivatedRoute);
+  private cd = inject(ChangeDetectorRef);
+
 
   profile: Profile;
   favoritesConfig: ArticleListConfig = {

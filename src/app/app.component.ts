@@ -6,7 +6,7 @@ import { HeaderComponent, FooterComponent } from "./shared/layout";
 
 import { ListErrorsComponent } from "./shared/list-errors.component";
 import { ShowAuthedDirective } from "./shared/show-authed.directive";
-import { CommonModule } from "@angular/common";
+
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 @Component({
@@ -26,9 +26,8 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
   imports: [
     RouterOutlet,
     HeaderComponent,
-    FooterComponent,
-    CommonModule,
-  ],
+    FooterComponent
+],
 })
 export class AppComponent implements OnInit {
 

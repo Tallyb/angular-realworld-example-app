@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -13,11 +13,10 @@ import { Profile, UserService, ProfilesService } from '../../core';
   ]
 })
 export class FollowButtonComponent {
-  constructor(
-    private userService: UserService,
-    private profilesService: ProfilesService,
-    private router: Router
-  ) {}
+  private userService = inject(UserService);
+  private profilesService = inject(ProfilesService);
+  private router = inject(Router);
+
 
   @Input() profile: Profile;
   @Output() toggle = new EventEmitter<boolean>();

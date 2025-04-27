@@ -1,19 +1,23 @@
 import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 
 import { Errors } from "../core";
 
 @Component({
   selector: "app-list-errors",
   template: `
-    <ul class="error-messages" *ngIf="errorList">
-      <li *ngFor="let error of errorList; trackBy: trackByFn">
-        {{ error }}
-      </li>
-    </ul>
-  `,
+    @if (errorList) {
+      <ul class="error-messages">
+        @for (error of errorList; track trackByFn($index, error)) {
+          <li>
+            {{ error }}
+          </li>
+        }
+      </ul>
+    }
+    `,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule]
+  imports: []
 })
 export class ListErrorsComponent {
   formattedErrors: Array<string> = [];

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 
 import { Article } from '../../core';
 import { ArticleMetaComponent } from './article-meta.component';
@@ -10,11 +10,10 @@ import { FavoriteButtonComponent } from '../buttons/favorite-button.component';
   selector: 'app-article-preview',
   templateUrl: './article-preview.component.html',
   imports: [
-    CommonModule,
     RouterModule,
     ArticleMetaComponent,
     FavoriteButtonComponent
-  ]
+]
 })
 export class ArticlePreviewComponent {
   @Input() article: Article;

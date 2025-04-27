@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,12 +13,11 @@ import { ArticleListComponent, ShowAuthedDirective } from '../shared';
   imports: [CommonModule, ArticleListComponent, ShowAuthedDirective],
 })
 export class HomeComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private tagsService: TagsService,
-    private userService: UserService,
-    private cd: ChangeDetectorRef
-  ) {}
+  private router = inject(Router);
+  private tagsService = inject(TagsService);
+  private userService = inject(UserService);
+  private cd = inject(ChangeDetectorRef);
+
 
   isAuthenticated: boolean;
   listConfig: ArticleListConfig = {
