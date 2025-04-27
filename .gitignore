@@ -48,3 +48,8 @@ Thumbs.db
 /playwright/.cache/
 .certificates
 
+
+
+
+.nx/cache
+.nx/workspace-data

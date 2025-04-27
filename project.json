@@ -1,0 +1,147 @@
+{
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "ang2-conduit",
+  "sourceRoot": "src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "dist",
+        "index": "src/index.html",
+        "main": "src/main.ts",
+        "tsConfig": "src/tsconfig.app.json",
+        "polyfills": "src/polyfills.ts",
+        "assets": [
+          "src/assets",
+          "src/favicon.ico",
+          "src/manifest.webmanifest"
+        ],
+        "styles": [
+          "src/styles.css"
+        ],
+        "scripts": [],
+        "namedChunks": true,
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "aot": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ],
+          "serviceWorker": true,
+          "ngswConfigPath": "ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "outputHashing": "none",
+          "sourceMap": true,
+          "extractLicenses": false,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.ts"
+            }
+          ],
+          "serviceWorker": true,
+          "ngswConfigPath": "ngsw-config.json"
+        }
+      },
+      "defaultConfiguration": "",
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "buildTarget": "ang2-conduit:build",
+        "ssl": true,
+        "sslCert": ".certificates/localhost.crt",
+        "sslKey": ".certificates/localhost.key"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "ang2-conduit:build:production"
+        },
+        "development": {
+          "buildTarget": "ang2-conduit:build:development"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "ang2-conduit:build"
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "src/**/*.ts",
+          "src/**/*.html"
+        ]
+      },
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "configDir": ".storybook",
+        "browserTarget": "ang2-conduit:build",
+        "compodoc": false,
+        "port": 6006
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "options": {
+        "configDir": ".storybook",
+        "browserTarget": "ang2-conduit:build",
+        "compodoc": false,
+        "outputDir": "dist/storybook/ang2-conduit"
+      }
+    }
+  }
+}

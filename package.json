@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --configuration development",
-    "build": "ng build --configuration production  --base-href ./ && cp CNAME dist/CNAME",
-    "test": "ng test",
-    "lint": "ng lint --force",
-    "e2e": "ng e2e"
+    "start": "nx serve --configuration development",
+    "build": "nx build --configuration production  --base-href ./ && cp CNAME dist/CNAME",
+    "test": "nx test",
+    "lint": "nx lint --force",
+    "e2e": "nx e2e"
   },
   "pre-commit": [
     "lint"
@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "19.2.9",
+    "@angular-devkit/core": "19.2.9",
+    "@angular-devkit/schematics": "19.2.9",
     "@angular-eslint/builder": "19.3.0",
     "@angular-eslint/eslint-plugin": "19.3.0",
     "@angular-eslint/eslint-plugin-template": "19.3.0",
@@ -41,7 +43,10 @@
     "@angular/compiler": "19.2.8",
     "@angular/compiler-cli": "19.2.8",
     "@angular/language-service": "19.2.8",
+    "@nx/angular": "20.8.1",
+    "@nx/workspace": "20.8.1",
     "@playwright/test": "1.52.0",
+    "@schematics/angular": "19.2.9",
     "@storybook/addon-essentials": "8.6.12",
     "@storybook/addon-interactions": "8.6.12",
     "@storybook/addon-links": "8.6.12",
@@ -54,6 +59,7 @@
     "eslint-plugin-storybook": "0.12.0",
     "jsdom": "^26.1.0",
     "ng-mocks": "^14.13.4",
+    "nx": "20.8.1",
     "pre-commit": "1.2.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
