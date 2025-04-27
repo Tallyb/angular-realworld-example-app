@@ -1,24 +1,24 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
-  "name": "ang2-conduit",
-  "sourceRoot": "src",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "conduit",
+  "sourceRoot": "apps/conduit/src",
   "projectType": "application",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
         "outputPath": "dist",
-        "index": "src/index.html",
-        "main": "src/main.ts",
-        "tsConfig": "src/tsconfig.app.json",
-        "polyfills": "src/polyfills.ts",
+        "index": "apps/conduit/src/index.html",
+        "main": "apps/conduit/src/main.ts",
+        "tsConfig": "apps/conduit/tsconfig.app.json",
+        "polyfills": "apps/conduit/src/polyfills.ts",
         "assets": [
-          "src/assets",
-          "src/favicon.ico",
-          "src/manifest.webmanifest"
+          "apps/conduit/src/assets",
+          "apps/conduit/src/assets/favicon.ico",
+          "apps/conduit/src/assets/manifest.webmanifest"
         ],
         "styles": [
-          "src/styles.css"
+          "{projectRoot}/src/styles.css"
         ],
         "scripts": [],
         "namedChunks": true,
@@ -50,8 +50,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "src/environments/environment.ts",
-              "with": "src/environments/environment.prod.ts"
+              "replace": "{projectRoot}/src/environments/environment.ts",
+              "with": "{projectRoot}/src/environments/environment.prod.ts"
             }
           ],
           "serviceWorker": true,
@@ -77,8 +77,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "src/environments/environment.ts",
-              "with": "src/environments/environment.ts"
+              "replace": "{projectRoot}/src/environments/environment.ts",
+              "with": "{projectRoot}/src/environments/environment.ts"
             }
           ],
           "serviceWorker": true,
@@ -93,32 +93,35 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "buildTarget": "ang2-conduit:build",
+        "buildTarget": "conduit:build",
         "ssl": true,
         "sslCert": ".certificates/localhost.crt",
         "sslKey": ".certificates/localhost.key"
       },
       "configurations": {
         "production": {
-          "buildTarget": "ang2-conduit:build:production"
+          "buildTarget": "conduit:build:production"
         },
         "development": {
-          "buildTarget": "ang2-conduit:build:development"
+          "buildTarget": "conduit:build:development"
         }
       }
+    },
+    "test": {
+      "executor": "@analogjs/vitest-angular:test"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "ang2-conduit:build"
+        "buildTarget": "conduit:build"
       }
     },
     "lint": {
       "executor": "@angular-eslint/builder:lint",
       "options": {
         "lintFilePatterns": [
-          "src/**/*.ts",
-          "src/**/*.html"
+          "{projectRoot}/src/**/*.ts",
+          "{projectRoot}/src/**/*.html"
         ]
       },
       "outputs": [
@@ -129,7 +132,7 @@
       "executor": "@storybook/angular:start-storybook",
       "options": {
         "configDir": ".storybook",
-        "browserTarget": "ang2-conduit:build",
+        "browserTarget": "conduit:build",
         "compodoc": false,
         "port": 6006
       }
@@ -138,9 +141,9 @@
       "executor": "@storybook/angular:build-storybook",
       "options": {
         "configDir": ".storybook",
-        "browserTarget": "ang2-conduit:build",
+        "browserTarget": "conduit:build",
         "compodoc": false,
-        "outputDir": "dist/storybook/ang2-conduit"
+        "outputDir": "dist/storybook/conduit"
       }
     }
   }
