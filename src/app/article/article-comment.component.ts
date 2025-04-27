@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, inject, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -18,8 +18,8 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
 
-  @Input() comment: Comment;
-  @Input() currentUser: User;
+  readonly comment = input<Comment>(undefined);
+  readonly currentUser = input<User>(undefined);
   @Output() deleteComment = new EventEmitter<boolean>();
 
   canModify: boolean;
@@ -28,7 +28,7 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
     // Load the current user's data
     this.subscription = this.userService.currentUser.subscribe(
       (userData: User) => {
-        this.canModify = (userData.username === this.comment.author.username);
+        this.canModify = (userData.username === this.comment().author.username);
         this.cd.markForCheck();
       }
     );

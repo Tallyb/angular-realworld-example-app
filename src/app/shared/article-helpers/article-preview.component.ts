@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 
@@ -16,15 +16,15 @@ import { FavoriteButtonComponent } from '../buttons/favorite-button.component';
 ]
 })
 export class ArticlePreviewComponent {
-  @Input() article: Article;
+  readonly article = input<Article>(undefined);
 
   onToggleFavorite(favorited: boolean) {
-    this.article.favorited = favorited;
+    this.article().favorited = favorited;
 
     if (favorited) {
-      this.article.favoritesCount++;
+      this.article().favoritesCount++;
     } else {
-      this.article.favoritesCount--;
+      this.article().favoritesCount--;
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class FavoriteButtonComponent {
   private userService = inject(UserService);
 
 
-  @Input() article: Article;
+  readonly article = input<Article>(undefined);
   @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
@@ -33,8 +33,9 @@ export class FavoriteButtonComponent {
         }
 
         // Favorite the article if it isn't favorited yet
-        if (!this.article.favorited) {
-          this.articlesService.favorite(this.article.slug)
+        const article = this.article();
+        if (!article.favorited) {
+          this.articlesService.favorite(article.slug)
           .subscribe({
             next: data => {
               this.isSubmitting = false;
@@ -45,7 +46,7 @@ export class FavoriteButtonComponent {
 
         // Otherwise, unfavorite the article
         } else {
-          this.articlesService.unfavorite(this.article.slug)
+          this.articlesService.unfavorite(article.slug)
           .subscribe({
             next: data => {
               this.isSubmitting = false;

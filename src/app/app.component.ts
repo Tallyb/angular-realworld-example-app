@@ -12,11 +12,11 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 @Component({
   selector: "app-root",
   template: `
-    <app-layout-header></app-layout-header>
+    <app-layout-header />
 
-    <router-outlet></router-outlet>
+    <router-outlet />
 
-    <app-layout-footer></app-layout-footer>
+    <app-layout-footer />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

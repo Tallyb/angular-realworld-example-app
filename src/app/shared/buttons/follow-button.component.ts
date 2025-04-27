@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -18,7 +18,7 @@ export class FollowButtonComponent {
   private router = inject(Router);
 
 
-  @Input() profile: Profile;
+  readonly profile = input<Profile>(undefined);
   @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
@@ -34,8 +34,9 @@ export class FollowButtonComponent {
         }
 
         // Follow this profile if we aren't already
-        if (!this.profile.following) {
-          this.profilesService.follow(this.profile.username)
+        const profile = this.profile();
+        if (!profile.following) {
+          this.profilesService.follow(profile.username)
           .subscribe({
             next: data => {
               this.isSubmitting = false;
@@ -46,7 +47,7 @@ export class FollowButtonComponent {
 
         // Otherwise, unfollow this profile
         } else {
-          this.profilesService.unfollow(this.profile.username)
+          this.profilesService.unfollow(profile.username)
           .subscribe({
             next: data => {
               this.isSubmitting = false;

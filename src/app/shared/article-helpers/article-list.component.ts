@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Article, ArticleListConfig, ArticlesService } from '../../core';
@@ -17,8 +17,8 @@ import { ArticlePreviewComponent } from './article-preview.component';
 export class ArticleListComponent implements OnInit {
 
 
-  @Input() limit: number;
-  @Input() config: ArticleListConfig;
+  readonly limit = input<number>(undefined);
+  readonly config = input<ArticleListConfig>(undefined);
 
   private articlesService: ArticlesService = inject(ArticlesService);
   query: ArticleListConfig = {
@@ -32,7 +32,7 @@ export class ArticleListComponent implements OnInit {
 
   ngOnInit() {
     // Initialize with default values
-    this.query = {...this.config};
+    this.query = {...this.config()};
     this.runQuery();
   }
 
@@ -50,9 +50,10 @@ export class ArticleListComponent implements OnInit {
     this.results = [];
 
     // Create limit and offset filter (if necessary)
-    if (this.limit) {
-      this.query.filters.limit = this.limit;
-      this.query.filters.offset =  (this.limit * (this.currentPage - 1));
+    const limit = this.limit();
+    if (limit) {
+      this.query.filters.limit = limit;
+      this.query.filters.offset =  (limit * (this.currentPage - 1));
     }
 
     this.articlesService.query(this.query)
@@ -62,7 +63,7 @@ export class ArticleListComponent implements OnInit {
         this.results = data.articles;
 
         // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
-        this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => index + 1);
+        this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit())), (val, index) => index + 1);
       }
     });
   }
