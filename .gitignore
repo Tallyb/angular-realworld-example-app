@@ -6,7 +6,8 @@
 /out-tsc
 
 # dependencies
-/node_modules
+node_modules/
+**/node_modules/
 
 # IDEs and editors
 .vscode/
@@ -47,9 +48,6 @@ Thumbs.db
 /playwright-report/
 /playwright/.cache/
 .certificates
-
-
-
 
 .nx/cache
 .nx/workspace-data

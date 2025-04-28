@@ -1,4 +1,4 @@
-import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AuthGuard } from './auth-guard.service';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ describe('AuthGuard', () => {
   let userService: UserService;
   let router: Router;
 
-  test('should be true', () => {
+  it('should be true', () => {
     expect(true).toBeTruthy();
   });
 });
