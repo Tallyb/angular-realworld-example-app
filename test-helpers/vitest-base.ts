@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitest/config';
 import { join } from 'path';
 
+console.log('***',join(__dirname, '../.nyc_output'));
+
 export const getConfig = (root: string) => defineConfig({
   test: {
     root,
