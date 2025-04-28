@@ -41,7 +41,7 @@ describe('ArticlesService', () => {
       };
 
       apiService.get = vi.fn().mockReturnValue(of(mockResponse));
-      console.log(process.env.TZ, process.env.LANG);
+      console.log(process.env.TZ);
       service.query(config).subscribe((response) => {
         expect(response).toEqual(mockResponse);
         expect(apiService.get).toHaveBeenCalledWith(

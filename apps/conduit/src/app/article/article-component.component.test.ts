@@ -1,4 +1,4 @@
-import { test, expect } from '../../test-helpers/fixtures';
+import { test, expect } from '../../../../../test-helpers/fixtures';
 
 test('Article component', async ({ page, getComponent }) => {
   await page.goto('iframe.html?args=&id=example-articlepreviewcomponent--primary');

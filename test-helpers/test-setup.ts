@@ -9,6 +9,10 @@ import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 // Create a custom testing module to provide zoneless change detection
 import { NgModule } from '@angular/core';
 
+
+process.env.TZ = 'UTC';
+process.env.LANG = 'en_US';
+
 @NgModule({
   providers: [provideExperimentalZonelessChangeDetection()],
 })
