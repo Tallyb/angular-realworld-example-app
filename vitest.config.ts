@@ -1,7 +1,10 @@
 import { defineConfig } from 'vitest/config'
 import { join } from 'path';
-console.log('***dirname from top***',join(__dirname));
+import angular from '@analogjs/vite-plugin-angular';
+
+
 export default defineConfig({
+  plugins: [angular()],
   test: {
     workspace: ['apps/*/vitest.config.ts'],
     coverage: {
