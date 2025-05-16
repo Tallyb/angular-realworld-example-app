@@ -50,6 +50,7 @@
     "@nx/eslint-plugin": "^20.8.1",
     "@nx/js": "20.8.1",
     "@nx/rspack": "20.8.1",
+    "@nx/vite": "^21.0.0",
     "@nx/web": "20.8.1",
     "@nx/workspace": "20.8.1",
     "@playwright/test": "1.52.0",
